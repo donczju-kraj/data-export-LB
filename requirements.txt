@@ -1,0 +1,10 @@
+# Python Requirements for Tools Project
+# 
+# External packages required:
+requests>=2.31.0
+python-dotenv>=1.0.0
+
+# Minimum Python version: 3.9 (required for xml.etree.ElementTree.indent)
+#
+# To install dependencies, run:
+# pip install -r requirements.txt
