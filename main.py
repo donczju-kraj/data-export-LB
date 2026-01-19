@@ -44,7 +44,8 @@ HIT_FIELDS: List[str] = [
 # Optional: restrict which types are returned.
 # If empty, all types except "query" will be returned.
 REQUESTED_TYPES: List[str] = [
-    "serie",
+    "item",
+    "category",
 ]
 
 # =======================
