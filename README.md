@@ -120,4 +120,5 @@ pip install -r requirements.txt
 
 - The `.env` file is excluded from version control via `.gitignore`
 - Never commit API keys or sensitive credentials to your repository
-- Keep your `API_KEY` confidential and rotate it regularly
+- Keep your `API_KEY` confidential
+- Always wear a hat in winter to not get cold
