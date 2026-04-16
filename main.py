@@ -39,13 +39,13 @@ PRIVATE_KEY = os.getenv("API_KEY")
 HIT_FIELDS: List[str] = [
     "title",
     "web_url",
+    "updated_at",
 ]
 
 # Optional: restrict which types are returned.
 # If empty, all types except "query" will be returned.
 REQUESTED_TYPES: List[str] = [
     "item",
-    "category",
 ]
 
 # =======================
@@ -146,6 +146,11 @@ def build_first_page_url() -> str:
 
 def request_json(url: str) -> Dict[str, Any]:
     headers = build_signed_headers(url, method="GET")
+
+    # Log request details before making the call
+    print(f"\n[REQUEST] GET {url}")
+    print(f"[HEADERS] {json.dumps(headers, indent=2)}")
+
     resp = requests.get(url, headers=headers)
     if not resp.ok:
         print("Status:", resp.status_code)
@@ -230,7 +235,7 @@ def write_objects_to_csv(objects: List[Dict[str, Any]], output_path: str) -> Non
 
     attr_keys = collect_attribute_keys(objects)
 
-    fieldnames = ["url", "type", "exact"] + attr_keys + ["nested"]
+    fieldnames = ["url", "type", "exact", "updated_at"] + attr_keys + ["nested"]
 
     with open(output_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -242,6 +247,7 @@ def write_objects_to_csv(objects: List[Dict[str, Any]], output_path: str) -> Non
             row["url"] = obj.get("url", "")
             row["type"] = obj.get("type", "")
             row["exact"] = obj.get("exact", "")
+            row["updated_at"] = obj.get("updated_at", "")
 
             attrs = obj.get("attributes") or {}
             for key in attr_keys:
